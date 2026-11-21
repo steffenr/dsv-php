@@ -8,3 +8,8 @@
 .vscode/
 .DS_Store
 *.log
+
+# Official DSV standards (documents of the Deutscher Schwimm-Verband), kept locally only
+/DSV_Standard7.md
+/DSV_Standard_8_gultig_ab_01082026.md
+/DSV_Standard*.pdf
