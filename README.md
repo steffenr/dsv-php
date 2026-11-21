@@ -133,7 +133,8 @@ vendor/bin/dsv info meeting.dsv7                              # list type, versi
 vendor/bin/dsv json meeting.dsv7                              # all records as JSON
 ```
 
-Handy in CI to check files before they are uploaded or published.
+Handy in CI to check files before they are uploaded or published. Synthetic sample files
+for trying it out are in [`examples/data/`](examples/data) (`meeting.dsv7`, `meeting.dsv8`).
 
 ## Integration
 
@@ -163,6 +164,8 @@ import and CI validation.
 - The library does **not** convert character encodings. The standard prescribes UTF-8; files
   in other encodings are reported (`unknown-encoding-replacement-character`) but not
   transcoded. Convert with `mb_convert_encoding()` first if you must.
+- Packed `.DSV8z` files (ZIP with one DSV file, new in standard 8) are read by `Dsv::parseFile()`
+  and need `ext-zip` (only suggested, not required). Creating archives is not supported.
 - Complete files are read into memory (a 1 MB result list parses in about 0.2 s). There is no streaming reader.
 - No DSV7 ↔ DSV8 *converter*. You can write a parsed list with another `WriteOptions::$version`, but the strict writer refuses when the target version needs data the source lacks (for example `BANKVERBINDUNG.kontoinhaber` in DSV8) or does not allow it (DSV8-only enum values in DSV7).
 - No helper for the file name convention of the specification (`JJJJ-MM-TT-Ort-Zusatz.DSV8`). The list type is always read from `FORMAT`.

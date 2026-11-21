@@ -11,6 +11,12 @@ breaking changes raise the minor version.
 
 - Initial PHP 8.4+ port of the TypeScript library
   [`@schroeer-haren/dsv`](https://github.com/schroeer-haren/dsv).
+- Synthetic sample files `examples/data/meeting.dsv7` and `meeting.dsv8`; the DSV8 sample is the
+  Wettkampfergebnisliste example of the DSV Standard 8.
+- `Dsv::parseFile()` reads packed `.DSV8z` archives (standard 8: ZIP with exactly one DSV file;
+  needs `ext-zip`, suggested in `composer.json`).
+- Fixtures `tests/fixtures/synth/spec8-*.dsv8`: the four examples of the DSV Standard 8, with the
+  typos of the printed examples corrected.
 - Schema-free parser (`Dsv::parse`) with byte-identical write-back (`Dsv::write`).
 - Typed, validating parser for the four list types `Wettkampfdefinitionsliste`,
   `Wettkampfergebnisliste`, `Vereinsmeldeliste` and `Vereinsergebnisliste`, DSV7 and DSV8.
