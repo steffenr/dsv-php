@@ -1,4 +1,4 @@
-# steffenr/dsv-php (PHP)
+# dsv-php
 
 PHP library for **reading, validating and writing DSV files** — the data exchange
 format of the *Deutscher Schwimm-Verband* (German swimming federation) for
