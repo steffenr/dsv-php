@@ -23,6 +23,47 @@ final class ProjectorsTest extends TestCase
 {
     use FixtureTrait;
 
+    public function testStandardExampleResultGraph(): void
+    {
+        $list = Dsv::parseFile(__DIR__ . '/../../examples/data/meeting.dsv8')->document;
+        $p = Dsv::projectResult($list);
+        $g = $p->graph;
+
+        self::assertSame([], $p->diagnostics);
+        self::assertCount(2, $g->abschnitte);
+        self::assertCount(3, $g->startByKey);
+        self::assertCount(1, $g->staffelByKey);
+        $staffel = $g->staffelByKey['2012:4:E'] ?? null;
+        self::assertNotNull($staffel);
+        self::assertSame(26974, $staffel->endzeit);
+        self::assertCount(4, $staffel->personen);
+        self::assertCount(4, $staffel->zwischenzeiten);
+    }
+
+    public function testStandardExampleResultGraphDsv7(): void
+    {
+        $r = Dsv::parseFile(__DIR__ . '/../fixtures/synth/spec7-wettkampfergebnisliste.dsv7');
+        self::assertTrue($r->ok);
+
+        $p = Dsv::projectResult($r->document);
+
+        self::assertSame([], $p->diagnostics);
+        self::assertCount(3, $p->graph->startByKey);
+        self::assertSame(26974, $p->graph->staffelByKey['2012:4:E']->endzeit ?? null);
+    }
+
+    public function testStandardExampleDefinitionGraphDsv7(): void
+    {
+        $r = Dsv::parseFile(__DIR__ . '/../fixtures/synth/spec7-wettkampfdefinitionsliste.dsv7');
+        self::assertTrue($r->ok);
+
+        $p = Dsv::projectDefinition($r->document);
+
+        self::assertSame([], $p->diagnostics);
+        self::assertCount(2, $p->graph->abschnitte);
+        self::assertCount(6, $p->graph->wettkampfByKey);
+    }
+
     public function testDefinitionGraph(): void
     {
         $list = Dsv::parseList(self::fixture('synth/pflichtzeit.dsv7'), ListType::Wettkampfdefinitionsliste)->document;
