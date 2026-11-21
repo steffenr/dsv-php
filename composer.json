@@ -1,0 +1,36 @@
+{
+    "name": "steffenr/dsv-php",
+    "description": "PHP library for parsing, validating and writing DSV files (DSV7 / DSV8) used in German swimming (Deutscher Schwimm-Verband)",
+    "type": "library",
+    "license": "MIT",
+    "keywords": ["dsv", "dsv7", "dsv8", "swimming", "schwimmen", "parser", "wettkampf"],
+    "homepage": "https://github.com/steffenr/dsv-php",
+    "authors": [
+        {"name": "Steffen Rühlmann", "homepage": "https://github.com/steffenr"},
+        {"name": "Philipp Schröer", "role": "Author of the original TypeScript library"}
+    ],
+    "require": {
+        "php": ">=8.4"
+    },
+    "require-dev": {
+        "friendsofphp/php-cs-fixer": "^3.64",
+        "phpstan/phpstan": "^2.1",
+        "phpunit/phpunit": "^12.0"
+    },
+    "bin": ["bin/dsv"],
+    "autoload": {
+        "psr-4": {"SteffenR\\Dsv\\": "src/"}
+    },
+    "autoload-dev": {
+        "psr-4": {"SteffenR\\Dsv\\Tests\\": "tests/"}
+    },
+    "scripts": {
+        "test": "phpunit",
+        "stan": "phpstan analyse --memory-limit=512M",
+        "cs": "php-cs-fixer fix --dry-run --diff",
+        "cs:fix": "php-cs-fixer fix",
+        "check": ["@cs", "@stan", "@test"]
+    },
+    "config": {"sort-packages": true, "optimize-autoloader": true},
+    "minimum-stability": "stable"
+}

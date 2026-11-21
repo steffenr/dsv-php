@@ -1,0 +1,29 @@
+name: Release
+
+on:
+  push:
+    tags: ['v*.*.*']
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.4'
+          tools: composer:v2
+      - run: composer update --no-interaction --no-progress
+      - name: Full check before releasing
+        run: |
+          composer validate --strict
+          vendor/bin/php-cs-fixer fix --dry-run --diff
+          vendor/bin/phpstan analyse --memory-limit=512M --no-progress
+          vendor/bin/phpunit
+      - name: Create GitHub release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release create "${GITHUB_REF_NAME}" --title "${GITHUB_REF_NAME}" --generate-notes
