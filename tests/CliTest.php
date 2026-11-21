@@ -45,6 +45,14 @@ final class CliTest extends TestCase
         self::assertStringContainsString(': ok (0 error(s), 0 warning(s))', $out);
     }
 
+    public function testValidateOkForDsv8Sample(): void
+    {
+        [$code, $out] = self::invoke(['validate', self::path('../examples/data/meeting.dsv8')]);
+
+        self::assertSame(0, $code);
+        self::assertStringContainsString(': ok (0 error(s), 0 warning(s))', $out);
+    }
+
     public function testValidateFailsOnErrors(): void
     {
         [$code, $out] = self::invoke(['validate', self::path('fixtures/synth/delta-vereinsmeldeliste-verstoss.dsv7')]);
