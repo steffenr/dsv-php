@@ -1,0 +1,19 @@
+* text=auto eol=lf
+# Fixtures are byte-exact test inputs (mixed CRLF/LF on purpose).
+tests/fixtures/** -text
+examples/data/** -text
+
+# Keep the distribution archive small.
+/.github export-ignore
+/tests export-ignore
+/examples export-ignore
+/docs export-ignore
+/.gitattributes export-ignore
+/.gitignore export-ignore
+/.editorconfig export-ignore
+/.php-cs-fixer.dist.php export-ignore
+/phpstan.neon.dist export-ignore
+/phpunit.xml.dist export-ignore
+/AGENTS.md export-ignore
+/CLAUDE.md export-ignore
+/CONTRIBUTING.md export-ignore

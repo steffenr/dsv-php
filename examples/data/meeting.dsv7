@@ -1,0 +1,20 @@
+(* Example meeting, entirely synthetic. Names and IDs are made up. *)
+FORMAT:Wettkampfergebnisliste;7;
+ERZEUGER:dsv-php-examples;1.0;examples@example.org;
+VERANSTALTUNG:Musterstaedter Herbstpokal;Musterstadt;25;AUTOMATISCH;
+VERANSTALTER:SV Musterstadt;
+AUSRICHTER:SV Musterstadt;Muster, Max;Musterweg 1;12345;Musterstadt;GER;;;ausrichter@example.org;
+ABSCHNITT:1;15.11.2026;10:00;N;
+KAMPFGERICHT:1;SCH;Richter, Rita;SV Musterstadt;
+WETTKAMPF:1;E;1;2;100;F;GL;W;SW;;;
+WETTKAMPF:2;E;1;2;50;B;GL;M;SW;;;
+WERTUNG:1;E;1;JG;0;9999;W;Offene Wertung weiblich;
+WERTUNG:2;E;2;JG;0;9999;M;Offene Wertung maennlich;
+VEREIN:SV Musterstadt;1234;10;GER;
+VEREIN:SG Beispielburg;5678;10;GER;
+PNERGEBNIS:1;E;1;1;;Beispiel, Anna;100001;1;W;2008;;SV Musterstadt;1234;00:01:02,45;;;GER;;;
+PNERGEBNIS:1;E;1;2;;Muster, Berta;100002;2;W;2009;;SG Beispielburg;5678;00:01:04,10;;;GER;;;
+PNERGEBNIS:2;E;2;1;;Probe, Carl;100003;3;M;2007;;SV Musterstadt;1234;00:00:33,20;;;GER;;;
+PNERGEBNIS:2;E;2;2;;Test, Dirk;100004;4;M;2006;;SG Beispielburg;5678;00:00:34,05;;;GER;;;
+PNZWISCHENZEIT:1;1;E;50;00:00:30,10;
+DATEIENDE
