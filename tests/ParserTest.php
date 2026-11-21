@@ -207,6 +207,44 @@ final class ParserTest extends TestCase
         self::assertTrue($r->ok);
     }
 
+    public function testParseFileUnpacksDsv8zArchive(): void
+    {
+        $path = $this->archive(['2002-03-10-Duisburg-Pr.DSV8' => (string) file_get_contents(__DIR__ . '/../examples/data/meeting.dsv8')]);
+
+        $r = Dsv::parseFile($path);
+
+        self::assertTrue($r->ok);
+        self::assertSame('WETTKAMPFERGEBNISLISTE', $r->document->listType);
+    }
+
+    public function testParseFileRejectsArchiveWithSeveralFiles(): void
+    {
+        $path = $this->archive(['a.DSV8' => 'x', 'b.DSV8' => 'y']);
+
+        $this->expectException(\SteffenR\Dsv\Exception\DsvFileException::class);
+        $this->expectExceptionMessage('exactly one DSV file');
+        Dsv::parseFile($path);
+    }
+
+    /** @param array<string,string> $entries */
+    private function archive(array $entries): string
+    {
+        if (!class_exists(\ZipArchive::class)) {
+            self::markTestSkipped('ext-zip is not available');
+        }
+
+        $path = tempnam(sys_get_temp_dir(), 'dsv8z');
+        self::assertNotFalse($path);
+        $zip = new \ZipArchive();
+        self::assertTrue($zip->open($path, \ZipArchive::CREATE | \ZipArchive::OVERWRITE));
+        foreach ($entries as $name => $content) {
+            $zip->addFromString($name, $content);
+        }
+        $zip->close();
+
+        return $path;
+    }
+
     public function testParseFileMissing(): void
     {
         $this->expectException(\SteffenR\Dsv\Exception\DsvFileException::class);

@@ -72,6 +72,7 @@ worse. An unknown list type gives the fatal `wrong-list-type`.
 
 ```php
 $result = Dsv::parseFile('/data/uploads/meet.dsv7');   // throws DsvFileException if unreadable
+// a packed .DSV8z archive (standard 8) works the same way; it needs ext-zip
 ```
 
 ### Throwing variant

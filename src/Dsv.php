@@ -110,6 +110,11 @@ final class Dsv
     /**
      * Reads a file and parses it with {@see self::parseAny()}.
      *
+     * A packed `.DSV8z` archive (standard 8: a ZIP with exactly one DSV file) is unpacked
+     * transparently; this needs `ext-zip`.
+     *
+     * @throws DsvFileException
+     *
      * @return ParseResult<TypedList>
      */
     public static function parseFile(string $path): ParseResult
@@ -174,6 +179,44 @@ final class Dsv
         $content = @file_get_contents($path);
         if ($content === false) {
             throw new DsvFileException(\sprintf('Cannot read DSV file "%s"', $path));
+        }
+
+        // The content, not the extension, decides: archives get renamed by mail programs and browsers.
+        if (str_starts_with($content, "PK\x03\x04")) {
+            return self::readArchive($path);
+        }
+
+        return $content;
+    }
+
+    /** Extracts the single DSV file of a packed .DSV8z archive. */
+    private static function readArchive(string $path): string
+    {
+        if (!class_exists(\ZipArchive::class)) {
+            throw new DsvFileException(\sprintf('"%s" is a ZIP archive (.DSV8z) but ext-zip is not available', $path));
+        }
+
+        $zip = new \ZipArchive();
+        if ($zip->open($path, \ZipArchive::RDONLY) !== true) {
+            throw new DsvFileException(\sprintf('Cannot open ZIP archive "%s"', $path));
+        }
+
+        try {
+            if ($zip->numFiles !== 1) {
+                throw new DsvFileException(\sprintf(
+                    'The archive "%s" must contain exactly one DSV file, found %d',
+                    $path,
+                    $zip->numFiles,
+                ));
+            }
+
+            $content = $zip->getFromIndex(0);
+        } finally {
+            $zip->close();
+        }
+
+        if ($content === false) {
+            throw new DsvFileException(\sprintf('Cannot read the DSV file inside "%s"', $path));
         }
 
         return $content;

@@ -12,6 +12,9 @@
     "require": {
         "php": ">=8.4"
     },
+    "suggest": {
+        "ext-zip": "Needed to read packed .DSV8z files with Dsv::parseFile()"
+    },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^3.64",
         "phpstan/phpstan": "^2.1",

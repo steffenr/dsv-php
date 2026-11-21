@@ -14,7 +14,7 @@ changes raise the minor version.
 | `parseOrThrow(string $input)` | `DsvDocument` | throws `DsvParseException` unless `ok` |
 | `parseList(string $input, ListType $type)` | `ParseResult<TypedList>` | typed + validated |
 | `parseAny(string $input)` | `ParseResult<TypedList>` | list type from `FORMAT` |
-| `parseFile(string $path)` | `ParseResult<TypedList>` | `parseAny` on a file; throws `DsvFileException` |
+| `parseFile(string $path)` | `ParseResult<TypedList>` | `parseAny` on a file; unpacks `.DSV8z` (needs `ext-zip`); throws `DsvFileException` |
 | `write(DsvDocument $document)` | `string` | byte-identical if unchanged |
 | `writeList(array\|TypedList $records, ListType $type, ?WriteOptions $options = null)` | `string` | strict; throws `DsvWriteException` |
 | `writeListPreservingDefects(…same…)` | `WriteResult` | passes pre-existing defects through |
