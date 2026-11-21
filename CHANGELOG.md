@@ -28,3 +28,5 @@ breaking changes raise the minor version.
 - Value codecs `Zeit`, `Datum`, `Uhrzeit`.
 - `vendor/bin/dsv` command line tool (`validate`, `info`, `json`).
 - Runnable examples in `examples/`, guides in `docs/`.
+- One-button `Release` workflow: derives the version from Conventional Commits, updates this
+  changelog, tags and creates the GitHub release.

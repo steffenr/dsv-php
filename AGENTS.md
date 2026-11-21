@@ -98,9 +98,14 @@ as JSON, convert to PHP arrays in the shape documented in `ListSchema::fromArray
 
 ## Releasing
 
-SemVer; `0.x` while the API settles. Move the `Unreleased` section of `CHANGELOG.md` to the new
-version, make sure `main` is green, then tag: `git tag v0.1.0 && git push --tags`. The
-`Release` workflow re-runs all checks and creates the GitHub release; Packagist picks up the tag.
+SemVer; `0.x` while the API settles. Releases are one button: GitHub → Actions → **Release** →
+*Run workflow* on `main` (`bump`: auto/patch/minor/major, or an explicit `version`; `dry_run` only
+previews). The workflow runs all checks, derives the version from Conventional Commits
+(`.github/scripts/prepare-release.sh`: `feat` → minor, `fix` → patch, breaking → major, minor
+while 0.x), writes the new section into `CHANGELOG.md`, commits `chore(release): vX.Y.Z`, tags,
+pushes and creates the GitHub release. Packagist picks up the tag. So write good commit subjects:
+they become the changelog (`docs`/`test`/`chore`/`ci`/`build` are not listed). Hand-written entries
+under `Unreleased` are kept. Pushing a `vX.Y.Z` tag manually still works (checks + release).
 There is no version field in `composer.json` on purpose.
 
 ## Don't
