@@ -23,6 +23,14 @@ a valid file is.
 - **Modern PHP.** PHP ≥ 8.4, `declare(strict_types=1)`, readonly classes, enums, PHPStan
   level `max`, no runtime dependencies.
 
+## Support
+
+DSV-PHP is a spare-time project. If it is useful to you:
+
+<a href="https://buymeacoffee.com/steffenr"><img
+  src="https://camo.githubusercontent.com/c28781810ec561314c0480f2a773391df0006ce9f6fc92c1e36dee408ab2869e/68747470733a2f2f63646e2e6275796d6561636f666665652e636f6d2f627574746f6e732f76322f64656661756c742d79656c6c6f772e706e67"
+  alt="Buy Me a Coffee" width="150" height="42"></a>
+
 ## Installation
 
 ```bash
